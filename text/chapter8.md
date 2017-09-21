@@ -328,49 +328,49 @@ Try writing `userCity` using only `pure` and `apply`: you will see that it is im
 
 In the last chapter, we saw that the `Applicative` type class can be used to express parallelism. This was precisely because the function arguments being lifted were independent of one another. Since the `Monad` type class allows computations to depend on the results of previous computations, the same does not apply - a monad has to combine its side-effects in sequence.
 
-X> ## Exercises
-X>
-X> 1. (Easy) Look up the types of the `head` and `tail` functions from the `Data.Array` module in the `purescript-arrays` package. Use do notation with the `Maybe` monad to combine these functions into a function `third` which returns the third element of an array with three or more elements. Your function should return an appropriate `Maybe` type.
-X> 1. (Medium) Write a function `sums` which uses `foldM` to determine all possible totals that could be made using a set of coins. The coins will be specified as an array which contains the value of each coin. Your function should have the following result:
-X>
-X>     ```text
-X>     > sums []
-X>     [0]
-X>
-X>     > sums [1, 2, 10]
-X>     [0,1,2,3,10,11,12,13]
-X>     ```
-X>
-X>     _Hint_: This function can be written as a one-liner using `foldM`. You might want to use the `nub` and `sort` functions to remove duplicates and sort the result respectively.
-X> 1. (Medium) Confirm that the `ap` function and the `apply` operator agree for the `Maybe` monad.
-X> 1. (Medium) Verify that the monad laws hold for the `Monad` instance for the `Maybe` type, as defined in the `purescript-maybe` package.
-X> 1. (Medium) Write a function `filterM` which generalizes the `filter` function on lists. Your function should have the following type signature:
-X>
-X>     ```haskell
-X>     filterM :: forall m a. Monad m => (a -> m Boolean) -> List a -> m (List a)
-X>     ```
-X>
-X>     Test your function in PSCi using the `Maybe` and `Array` monads.
-X> 1. (Difficult) Every monad has a default `Functor` instance given by:
-X>
-X>     ```haskell
-X>     map f a = do
-X>       x <- a
-X>       pure (f x)
-X>     ```
-X>
-X>     Use the monad laws to prove that for any monad, the following holds:
-X>
-X>     ```haskell
-X>     lift2 f (pure a) (pure b) = pure (f a b)
-X>     ```
-X>     
-X>     where the `Applicative` instance uses the `ap` function defined above. Recall that `lift2` was defined as follows:
-X>    
-X>     ```haskell
-X>     lift2 :: forall f a b c. Applicative f => (a -> b -> c) -> f a -> f b -> f c
-X>     lift2 f a b = f <$> a <*> b
-X>     ```
+## Exercises
+
+1. (Easy) Look up the types of the `head` and `tail` functions from the `Data.Array` module in the `purescript-arrays` package. Use do notation with the `Maybe` monad to combine these functions into a function `third` which returns the third element of an array with three or more elements. Your function should return an appropriate `Maybe` type.
+1. (Medium) Write a function `sums` which uses `foldM` to determine all possible totals that could be made using a set of coins. The coins will be specified as an array which contains the value of each coin. Your function should have the following result:
+
+    ```text
+    > sums []
+    [0]
+
+    > sums [1, 2, 10]
+    [0,1,2,3,10,11,12,13]
+    ```
+
+    _Hint_: This function can be written as a one-liner using `foldM`. You might want to use the `nub` and `sort` functions to remove duplicates and sort the result respectively.
+1. (Medium) Confirm that the `ap` function and the `apply` operator agree for the `Maybe` monad.
+1. (Medium) Verify that the monad laws hold for the `Monad` instance for the `Maybe` type, as defined in the `purescript-maybe` package.
+1. (Medium) Write a function `filterM` which generalizes the `filter` function on lists. Your function should have the following type signature:
+
+    ```haskell
+    filterM :: forall m a. Monad m => (a -> m Boolean) -> List a -> m (List a)
+    ```
+
+    Test your function in PSCi using the `Maybe` and `Array` monads.
+1. (Difficult) Every monad has a default `Functor` instance given by:
+
+    ```haskell
+    map f a = do
+      x <- a
+      pure (f x)
+    ```
+
+    Use the monad laws to prove that for any monad, the following holds:
+
+    ```haskell
+    lift2 f (pure a) (pure b) = pure (f a b)
+    ```
+    
+    where the `Applicative` instance uses the `ap` function defined above. Recall that `lift2` was defined as follows:
+   
+    ```haskell
+    lift2 :: forall f a b c. Applicative f => (a -> b -> c) -> f a -> f b -> f c
+    lift2 f a b = f <$> a <*> b
+    ```
 
 ## Native Effects
 
@@ -772,10 +772,10 @@ return ref.x;
 
 The `ST` effect is a good way to generate short JavaScript when working with locally-scoped mutable state, especially when used together with actions like `forE`, `foreachE`, `whileE` and `untilE` which generate efficient loops in the `Eff` monad.
 
-X> ## Exercises
-X>
-X> 1. (Medium) Rewrite the `safeDivide` function to throw an exception using `throwException` if the denominator is zero.
-X> 1. (Difficult) The following is a simple way to estimate pi: randomly choose a large number `N` of points in the unit square, and count the number `n` which lie in the inscribed circle. An estimate for pi is `4n/N`. Use the `RANDOM` and `ST` effects with the `forE` function to write a function which estimates pi in this way.
+## Exercises
+
+1. (Medium) Rewrite the `safeDivide` function to throw an exception using `throwException` if the denominator is zero.
+1. (Difficult) The following is a simple way to estimate pi: randomly choose a large number `N` of points in the unit square, and count the number `n` which lie in the inscribed circle. An estimate for pi is `4n/N`. Use the `RANDOM` and `ST` effects with the `forE` function to write a function which estimates pi in this way.
 
 ## DOM Effects
 
@@ -1031,28 +1031,28 @@ Also try the user interface out by running `pulp browserify --to dist/Main.js` a
 
 Obviously, this user interface can be improved in a number of ways. The exercises will explore some ways in which we can make the application more usable.
 
-X> ## Exercises
-X>
-X> 1. (Easy) Modify the application to include a work phone number text box.
-X> 1. (Medium) Instead of using a `ul` element to show the validation errors in a list, modify the code to create one `div` with the `alert` style for each error.
-X> 1. (Difficult, Extended) One problem with this user interface is that the validation errors are not displayed next to the form fields they originated from. Modify the code to fix this problem.
-X>   
-X>   _Hint_: the error type returned by the validator should be extended to indicate which field caused the error. You might want to use the following modified `Errors` type:
-X>   
-X>   ```haskell
-X>   data Field = FirstNameField
-X>              | LastNameField
-X>              | StreetField
-X>              | CityField
-X>              | StateField
-X>              | PhoneField PhoneType
-X>   
-X>   data ValidationError = ValidationError String Field
-X>   
-X>   type Errors = Array ValidationError
-X>   ```
-X>
-X>   You will need to write a function which extracts the validation error for a particular `Field` from the `Errors` structure.
+## Exercises
+
+1. (Easy) Modify the application to include a work phone number text box.
+1. (Medium) Instead of using a `ul` element to show the validation errors in a list, modify the code to create one `div` with the `alert` style for each error.
+1. (Difficult, Extended) One problem with this user interface is that the validation errors are not displayed next to the form fields they originated from. Modify the code to fix this problem.
+  
+  _Hint_: the error type returned by the validator should be extended to indicate which field caused the error. You might want to use the following modified `Errors` type:
+  
+  ```haskell
+  data Field = FirstNameField
+             | LastNameField
+             | StreetField
+             | CityField
+             | StateField
+             | PhoneField PhoneType
+  
+  data ValidationError = ValidationError String Field
+  
+  type Errors = Array ValidationError
+  ```
+
+  You will need to write a function which extracts the validation error for a particular `Field` from the `Errors` structure.
 
 ## Conclusion
 
